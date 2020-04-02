@@ -19,7 +19,7 @@
             new Product {Name = "Flaga narożna", Category="Piłka nożna", Price = 34.95m},
         };
 
-        public HomeController(IvalueCalculator calcParam)
+        public HomeController(IvalueCalculator calcParam, IvalueCalculator calc2)
         {
             calc = calcParam;
         }

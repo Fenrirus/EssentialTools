@@ -5,6 +5,7 @@
     using System.Web.Mvc;
     using EssentialTools.Models;
     using Ninject;
+    using Ninject.Web.Common;
 
     public class NinjectDependencyResolver : IDependencyResolver
     {
@@ -28,7 +29,10 @@
 
         private void Addbindings()
         {
-            kernel.Bind<IvalueCalculator>().To<LinqValueCalculator>();
+            kernel.Bind<IvalueCalculator>().To<LinqValueCalculator>().InRequestScope();
+            //kernel.Bind<IDiscounterHelper>().To<DefaultDiscounterHelper>().WithPropertyValue("DiscountSize", 50m);
+            kernel.Bind<IDiscounterHelper>().To<DefaultDiscounterHelper>().WithConstructorArgument("discountParam", 50m);
+            kernel.Bind<IDiscounterHelper>().To<FlexibleDiscountHelper>().WhenInjectedInto<LinqValueCalculator>();
         }
     }
 }
